@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    My Function
+
+Globals:
+    Function:
+        Runtime: nodejs12.x
+        Handler: app.lambdaHandler
+
+Resources:
+    MyFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: src/
+            Events:
+                ScheduledEvent:
+                    Type: Schedule
+                    Properties:
+                        Schedule: rate(5 minutes)
+
+
+Outputs:
+    MyFunction:
+      Description: "My function ARN"
+      Value: !GetAtt MyFunction.Arn
